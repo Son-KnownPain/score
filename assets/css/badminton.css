@@ -1,0 +1,121 @@
+html {
+    font-size: 62.5%;
+}
+
+#app {
+    padding: 12px;
+}
+
+.score {
+    padding: 16px;
+    background-color: #cd7f32;
+}
+
+.score-key {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.score-value {
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+}
+
+.players {
+    margin-top: 24px;
+}
+
+.player-item {
+    border: 1px solid #999;
+    padding: 4px;
+}
+
+.player-name {
+    margin: 0;
+    padding: 4px;
+    font-size: 2.2rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.player-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.player-scoreText {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #4997d0;
+}
+
+.player-actions {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.player-actionItem {
+    border: none;
+    font-size: 1.6rem;
+    padding: 12px 16px;
+    background-color: #fad6a5;
+}
+
+/* Border animation */
+.turn {
+  --border-size: 3px;
+  --border-angle: 0turn;
+  background-image: conic-gradient(
+      from var(--border-angle),
+      #fff,
+      #fff 50%,
+      #fff
+    ),
+    conic-gradient(from var(--border-angle), transparent 20%, #00a2ff, #2a2eff);
+  background-size: calc(100% - (var(--border-size) * 2))
+      calc(100% - (var(--border-size) * 2)),
+    cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  animation: bg-spin 1.6s linear infinite;
+  
+
+  /* &:hover {
+    animation-play-state: paused;
+  } */
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+
+@keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+  
+.actions {
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-item {
+    padding: 12px 16px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    border: none;
+}
