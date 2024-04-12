@@ -4,7 +4,7 @@ html {
 
 body {
     min-height: 100vh;
-    background: url(/assets/images/badminton/bg.jpg) no-repeat 0;
+    background: url(../../assets/images/badminton/bg.jpg) no-repeat 0;
     background-size: cover !important;
 }
 
