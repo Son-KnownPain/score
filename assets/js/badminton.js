@@ -23,22 +23,6 @@ let appInfo = {
         }
     ],
     playerTurn: 1,
-    default: {
-        score: 21,
-        players: [
-            {
-                id: 1,
-                name: 'Người chơi 1',
-                score: 0,
-            },
-            {
-                id: 2,
-                name: 'Người chơi 2',
-                score: 0
-            }
-        ],
-        playerTurn: 1,
-    },
     setEndScore(newEndScore) {
         this.score = newEndScore
         endScoreValueElm.textContent = newEndScore
@@ -47,8 +31,8 @@ let appInfo = {
         endScoreValueElm.textContent = this.score
         const playersHtml = this.players.map(player => `
             <div class="col-6">
-                <div class="player-item">
-                    <h2 class="player-name ${appInfo.playerTurn == player.id ? 'turn' : ''}" data-id="${player.id}">
+                <div class="player-item ${appInfo.playerTurn == player.id ? 'turn' : ''}">
+                    <h2 class="player-name" data-id="${player.id}">
                         ${player.name}
                     </h2>
                     <div class="player-score">
@@ -114,11 +98,22 @@ endScoreElm.onclick = e => {
     }
 }
 
-resetBtn.onclick = e => {
-    appInfo.score = appInfo.default.score;
-    appInfo.players = appInfo.default.players;
-    appInfo.playerTurn = appInfo.default.playerTurn;
+resetBtn.onclick = () => {
+    appInfo.score = 21;
+    appInfo.players = [
+        {
+            id: 1,
+            name: 'Người chơi 1',
+            score: 0,
+        },
+        {
+            id: 2,
+            name: 'Người chơi 2',
+            score: 0
+        }
+    ];
+    appInfo.playerTurn = 1;
     appInfo.render();
 }
 
-appInfo.render()
+appInfo.render();

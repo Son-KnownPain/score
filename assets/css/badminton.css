@@ -2,13 +2,20 @@ html {
     font-size: 62.5%;
 }
 
+body {
+    min-height: 100vh;
+    background: url(/assets/images/badminton/bg.jpg) no-repeat 0;
+    background-size: cover !important;
+}
+
 #app {
     padding: 12px;
 }
 
 .score {
     padding: 16px;
-    background-color: #cd7f32;
+    background-color: #38448e;
+    border-radius: 12px;
 }
 
 .score-key {
@@ -30,43 +37,21 @@ html {
 }
 
 .player-item {
-    border: 1px solid #999;
-    padding: 4px;
+    padding: 16px;
+    background: #232260;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
 }
 
 .player-name {
     margin: 0;
-    padding: 4px;
+    padding: 8px 4px;
     font-size: 2.2rem;
     font-weight: 400;
     text-align: center;
-}
-
-.player-score {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 24px;
-}
-
-.player-scoreText {
-    font-size: 2.2rem;
-    font-weight: 600;
-    color: #4997d0;
-}
-
-.player-actions {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.player-actionItem {
-    border: none;
-    font-size: 1.6rem;
-    padding: 12px 16px;
-    background-color: #fad6a5;
+    color: #fff;
+    background-color: transparent;
+    border-radius: 12px;
 }
 
 /* Border animation */
@@ -75,9 +60,9 @@ html {
   --border-angle: 0turn;
   background-image: conic-gradient(
       from var(--border-angle),
-      #fff,
-      #fff 50%,
-      #fff
+      #232260,
+      #232260 50%,
+      #232260
     ),
     conic-gradient(from var(--border-angle), transparent 20%, #00a2ff, #2a2eff);
   background-size: calc(100% - (var(--border-size) * 2))
@@ -94,6 +79,34 @@ html {
   } */
 }
 
+
+.player-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.player-scoreText {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #b4dfff;
+}
+
+.player-actions {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.player-actionItem {
+    border: none;
+    font-size: 1.6rem;
+    padding: 12px 16px;
+    background-color: #a5a5fa;
+    border-radius: 50%;
+}
 @property --border-angle {
   syntax: "<angle>";
   inherits: true;
@@ -118,4 +131,6 @@ html {
     font-size: 1.8rem;
     font-weight: 500;
     border: none;
+    border-radius: 12px;
+    outline: none;
 }
