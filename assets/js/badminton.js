@@ -9,6 +9,7 @@ const resetBtn = $('.resetBtn');
 
 // App
 let appInfo = {
+    isChangeCourt: false,
     score: 21,
     players: [
         {
@@ -28,7 +29,9 @@ let appInfo = {
         endScoreValueElm.textContent = newEndScore
     },
     render() {
-        endScoreValueElm.textContent = this.score
+        const _this = this;
+        const score = this.score
+        endScoreValueElm.textContent = score
         const playersHtml = this.players.map(player => `
             <div class="col-6">
                 <div class="player-item ${appInfo.playerTurn == player.id ? 'turn' : ''}">
@@ -68,6 +71,11 @@ let appInfo = {
                     player.score++;
                 }
 
+                if (player.score == (score / 2).toFixed() && !_this.isChangeCourt) {
+                    annouceChangeCourt();
+                    _this.isChangeCourt = true;
+                }
+
                 appInfo.playerTurn = player.id;
 
                 appInfo.render();
@@ -99,6 +107,7 @@ endScoreElm.onclick = e => {
 }
 
 resetBtn.onclick = () => {
+    appInfo.isChangeCourt = false;
     appInfo.score = 21;
     appInfo.players = [
         {
@@ -117,3 +126,17 @@ resetBtn.onclick = () => {
 }
 
 appInfo.render();
+
+function annouceChangeCourt() {
+    const modal = document.querySelector('.modal')
+    const modalBackdrop = document.querySelector('.modal-backdrop')
+    const modalCloseBtn = document.querySelector('.modal .btn button')
+
+    modal.classList.toggle('active')
+    modalBackdrop.classList.toggle('active')
+
+    modalCloseBtn.onclick = () => {
+        modal.classList.remove('active')
+        modalBackdrop.classList.remove('active')
+    }
+}
