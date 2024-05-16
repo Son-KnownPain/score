@@ -1,0 +1,19 @@
+@keyframes showToast {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%) scale(0.5);
+    }
+    80% {
+        opacity: 0.5;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#ss-toast {
+    display: none;
+    animation: showToast ease-out .2s;
+}

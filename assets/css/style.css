@@ -1,3 +1,18 @@
+body {
+    padding: 10px 0 80px;
+}
+
+.heading-logo-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading-logo-box img {
+    width: 40px;
+    margin-right: 4px;
+}
+
 .heading {
     font-weight: 500;
     font-size: 32px;
@@ -11,16 +26,19 @@
 
 .gameItem {
     margin-top: 18px;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     text-decoration: none;
     color: #333;
 }
 
 .gameItem-img {
-    width: 100%;
-    height: 200px;
+    width: 400px;
+    max-width: 100%;
     border-radius: 4px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .gameItem-text {

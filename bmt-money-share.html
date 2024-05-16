@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chia tiền cầu lông | SoSo</title>
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/twss.css">
+    <link rel="stylesheet" href="./assets/css/bmt-money-share.css">
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Flowbite -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="dark:bg-gray-900 bg-white">
+    <div id="soso">
+        <header id="header" class="dark:bg-gray-900 bg-white h-16 border-b flex items-center justify-center fixed inset-0">
+            <a href="./index.html" class="flex items-center justify-center">
+                <img width="48px" src="./assets/images/favicon.png" alt="Logo">
+                <span class="text-lg text-gray-900 dark:text-white font-normal ml-1">SoSo | CLB Bãi Biển</span>
+            </a>
+        </header>
+
+        <!-- Message -->
+        <div id="ss-toast"></div>
+
+        <!-- Bottom navigation -->
+        <div class="fixed bottom-0 left-0 z-40 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+            <div class="grid h-full max-w-lg grid-cols-2 mx-auto font-medium">
+                <button data-modal-target="add-session-modal" data-modal-toggle="add-session-modal"  type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                    <i class="fa-solid fa-file-circle-plus text-gray-500 dark:text-gray-400"></i>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Thêm phiên</span>
+                </button>
+                <button data-modal-target="add-session-modal" data-modal-toggle="add-session-modal"  type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                    <i class="fa-solid fa-users-viewfinder text-gray-500 dark:text-gray-400"></i>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Xem tổng kết</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Add session modal -->
+        <div id="add-session-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <p class="text-lg text-gray-900 dark:text-white font-bold">Thêm phiên</p>
+                        <button data-modal-hide="add-session-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <form class="max-w-sm mx-auto" id="add-session-form">
+                            <div class="mb-5 form-group">
+                                <label for="as-sname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên phiên</label>
+                                <input type="text" id="as-sname" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="VD: 17h-19h" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="as-ccost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tiền hóa đơn (sân và phí khác)</label>
+                                <span class="fmt-val block mb-2 ml-1 italic text-sm font-medium text-gray-900 dark:text-white">0đ</span>
+                                <input type="number" id="as-ccost" name="courtCost" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập số tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="as-bcost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tiền cầu</label>
+                                <span class="fmt-val block mb-2 ml-1 italic text-sm font-medium text-gray-900 dark:text-white">0đ</span>
+                                <input type="number" id="as-bcost" name="ballCost" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập số tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Xác nhận
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update session modal -->
+        <div id="update-session-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <p class="text-lg text-gray-900 dark:text-white font-bold">Chỉnh sửa phiên</p>
+                        <button data-modal-hide="update-session-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <form class="max-w-sm mx-auto" id="update-session-form">
+                            <div class="form-group">
+                                <input value="UNSET" type="hidden" id="us-sID" name="sessionId" />
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="us-sname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên phiên</label>
+                                <input type="text" id="us-sname" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="VD: 17h-19h" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="us-ccost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tiền hóa đơn (sân và phí khác)</label>
+                                <span class="fmt-val block mb-2 ml-1 italic text-sm font-medium text-gray-900 dark:text-white">0đ</span>
+                                <input type="number" id="us-ccost" name="courtCost" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập số tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="us-bcost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tiền cầu</label>
+                                <span class="fmt-val block mb-2 ml-1 italic text-sm font-medium text-gray-900 dark:text-white">0đ</span>
+                                <input type="number" id="us-bcost" name="ballCost" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập số tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Xác nhận
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add player modal -->
+        <div id="add-player-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <p class="text-lg text-gray-900 dark:text-white font-bold">Thêm người chơi</p>
+                        <button data-modal-hide="add-player-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <form class="max-w-sm mx-auto" id="add-player-form">
+                            <div class="mb-5 form-group">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phiên: <span id="ap-sname">Không có</span></label>
+                                <input value="UNSET" type="hidden" id="ap-sID" name="sID" />
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="ap-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên người chơi</label>
+                                <input type="text" id="ap-name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="ap-playPercent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tỉ lệ đánh (0-100%)</label>
+                                <input type="number" id="ap-playPercent" name="playPercent" value="100" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0% - 100%" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Xác nhận
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete all players modal -->
+        <div id="deleteAllPlayersConfirmationModal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="deleteAllPlayersConfirmationModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-4 md:p-5 text-center">
+                        <i class="fa-solid fa-radiation mx-auto mb-4 text-gray-400 text-2xl dark:text-gray-200"></i>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Bạn có chắc chắn rằng muốn xóa tất cả người chơi trong phiên này?</h3>
+                        <button id="yesDltAllPlayerBtn" data-sid="UNSET" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Tôi chắc chắn
+                        </button>
+                        <button data-modal-hide="deleteAllPlayersConfirmationModal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Hủy bỏ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receive money modal -->
+        <div id="receive-money-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <p class="text-lg text-gray-900 dark:text-white font-bold">
+                            <i class="fa-solid fa-money-bill-transfer text-green-500"></i>
+                            Nhận tiền
+                        </p>
+                        <button data-modal-hide="receive-money-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <form class="max-w-sm mx-auto" id="receive-money-form">
+                            <div class="mb-5 form-group">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                    <span id="rm-pname">Loading...</span>
+                                </label>
+                                <input value="UNSET" type="hidden" id="rm-pID" name="pID" />
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="rm-giving" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Số tiền nhận được</label>
+                                <span class="fmt-val block mb-2 ml-1 italic text-sm font-medium text-gray-900 dark:text-white">0đ</span>
+                                <input type="number" id="rm-giving" name="giving" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Xác nhận
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update player info modal -->
+        <div id="update-player-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <p class="text-lg text-gray-900 dark:text-white font-bold">
+                            <i class="fa-solid fa-pen text-yellow-500"></i>
+                            Chỉnh sửa thông tin
+                        </p>
+                        <button data-modal-hide="update-player-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <form class="max-w-sm mx-auto" id="update-player-form">
+                            <div class="form-group">
+                                <input value="UNSET" type="hidden" id="upf-pID" name="pID" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="upf-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên</label>
+                                <input type="text" id="upf-name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="upf-giving" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Số tiền nhận được</label>
+                                <span class="fmt-val block mb-2 ml-1 italic text-sm font-medium text-gray-900 dark:text-white">0đ</span>
+                                <input type="number" id="upf-giving" name="giving" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <div class="mb-5 form-group">
+                                <label for="upf-playPercent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tỉ lệ đánh (0-100%)</label>
+                                <input type="number" id="upf-playPercent" name="playPercent" value="100" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tiền" />
+                                <span class="form-message text-red-600 dark:text-red-500 text-sm font-semibold"></span>
+                            </div>
+                            <button type="submit" class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                Cập nhật
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete player modal -->
+        <div id="deletePlayerConfirmationModal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="deletePlayerConfirmationModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-4 md:p-5 text-center">
+                        <i class="fa-solid fa-radiation mx-auto mb-4 text-gray-400 text-2xl dark:text-gray-200"></i>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Bạn có chắc chắn rằng muốn xóa người này?
+                        </h3>
+                        <button id="yesDltPlayerBtn" data-pid="UNSET" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Tôi chắc chắn
+                        </button>
+                        <button data-modal-hide="deletePlayerConfirmationModal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Hủy bỏ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete session modal -->
+        <div id="deleteSessionConfirmationModal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="deleteSessionConfirmationModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-4 md:p-5 text-center">
+                        <i class="fa-solid fa-radiation mx-auto mb-4 text-gray-400 text-2xl dark:text-gray-200"></i>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Bạn có chắc chắn rằng muốn xóa phiên này?
+                        </h3>
+                        <button id="yesDltSessionBtn" data-sid="UNSET" data-modal-hide="deleteSessionConfirmationModal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Tôi chắc chắn
+                        </button>
+                        <button data-modal-hide="deleteSessionConfirmationModal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Hủy bỏ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Done paid modal -->
+        <div id="donePaidConfirmationModal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="donePaidConfirmationModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-4 md:p-5 text-center">
+                        <i class="fa-solid fa-check-double mx-auto mb-4 text-green-400 text-2xl dark:text-green-200"></i>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Bạn có chắc chắn rằng đã hoàn tất với người này?
+                        </h3>
+                        <button id="yesDonePaidBtn" data-pid="UNSET" data-modal-hide="donePaidConfirmationModal" type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Tôi chắc chắn
+                        </button>
+                        <button data-modal-hide="donePaidConfirmationModal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Hủy bỏ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main id="content" class="mt-20 px-2" style="min-height: 100vh;">
+            <!-- Các phiên -->
+            <div class="mt-4" id="sessions"></div>
+        </main>
+        <!-- Version -->
+        <p class="text-xs text-gray-700 dark:text-slate-300 px-2 text-center pb-16">v1.0.0</p>
+    </div>
+
+    <script>
+        function formatDotMoney(number, currency = "đ") {
+            if (number) {
+                return parseInt(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + currency;
+            }
+            return '...'
+        }
+        function formatShortMoney(num) {
+            if (num >= 1000000000) {
+                return (num / 1000000000).toFixed(1) + 'B';
+            } else if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'k';
+            } else {
+                num = num + 'đ'
+            }
+            return num.toString();
+        }
+        function hideFlowbiteModal(targetName) {
+            document.querySelector('[data-modal-hide=' + targetName + ']').click();
+        }
+    </script>
+
+    <script src="./assets/libs/ss-toast/index.js"></script>
+    <script>
+        const { ssStatus: toastStatus, ssShow: showToast } = ssToast('#ss-toast', 3000);
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="./assets/libs/validation/validation.js"></script>
+    <script src="./assets/js/bmt-money-sharing/storage-init.js"></script>
+
+    <script>
+        // Valdate for add session form
+        Validator({
+            form: '#add-session-form',
+            formGroup: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#as-sname', 'Vui lòng nhập tên phiên'),
+                Validator.isNumber('#as-ccost', 'Vui lòng nhập tiền phí sân', { min: 0, minMaxMessage: 'Vui lòng nhập tiền từ 0 trở lên' }),
+                Validator.isNumber('#as-bcost', 'Vui lòng nhập tiền phí cầu', { min: 0, minMaxMessage: 'Vui lòng nhập tiền từ 0 trở lên' }),
+            ],
+            onSubmit: function(data, { resetForm }) {
+                resetForm({
+                    name: '',
+                    courtCost: '0',
+                    ballCost: '0',
+                })
+                storageDB.addSession(data.name, parseInt(data.courtCost), parseInt(data.ballCost))
+                document.querySelectorAll('#add-session-form span.fmt-val').forEach(elm => elm.textContent = '')
+                hideFlowbiteModal('add-session-modal')
+                showToast(toastStatus.SUCCESS, 'Thành công')
+            }
+        })
+
+        // Valdate for add player form
+        Validator({
+            form: '#add-player-form',
+            formGroup: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#ap-name', 'Vui lòng nhập tên người chơi'),
+                Validator.isNumber('#ap-playPercent', 'Vui lòng nhập tỉ lệ chơi', { min: 0, max: 100, minMaxMessage: 'Vui lòng chỉ nhập 0-100' }),
+            ],
+            onSubmit: function(data, { resetForm }) {
+                const { sID, name, playPercent } = data;
+                resetForm({
+                    name: '',
+                    playPercent: '100',
+                })
+                storageDB.addPlayer(sID, name, parseInt(playPercent))
+                hideFlowbiteModal('add-player-modal')
+                showToast(toastStatus.SUCCESS, 'Thành công')
+            }
+        })
+
+        // Valdate for update session form
+        Validator({
+            form: '#update-session-form',
+            formGroup: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#us-sname', 'Vui lòng nhập tên phiên'),
+                Validator.isNumber('#us-ccost', 'Vui lòng nhập tiền phí sân', { min: 0, minMaxMessage: 'Vui lòng nhập tiền từ 0 trở lên' }),
+                Validator.isNumber('#us-bcost', 'Vui lòng nhập tiền phí cầu', { min: 0, minMaxMessage: 'Vui lòng nhập tiền từ 0 trở lên' }),
+            ],
+            onSubmit: function(data, { resetForm }) {
+                const { sessionId, name, courtCost, ballCost } = data
+                resetForm({
+                    name: '',
+                    courtCost: '0',
+                    ballCost: '0',
+                })
+                storageDB.updateSession(sessionId, name, parseInt(courtCost), parseInt(ballCost))
+                hideFlowbiteModal('update-session-modal')
+                showToast(toastStatus.SUCCESS, 'Thành công')
+            }
+        })
+
+        // Valdate for receive money form
+        Validator({
+            form: '#receive-money-form',
+            formGroup: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isNumber('#rm-giving', 'Vui lòng nhập tiền nhận được', { min: 0, minMaxMessage: 'Vui lòng nhập tiền từ 0 trở lên' }),
+            ],
+            onSubmit: function(data, { resetForm }) {
+                const { pID, giving } = data
+                resetForm({
+                    pID: 'UNSET',
+                    giving: '0',
+                })
+                storageDB.receiveFromPlayer(pID, parseInt(giving))
+                hideFlowbiteModal('receive-money-modal')
+                showToast(toastStatus.SUCCESS, 'Thành công')
+            }
+        })
+
+        // Valdate for update player form
+        Validator({
+            form: '#update-player-form',
+            formGroup: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#upf-pID', 'Đã xảy ra lỗi! Không phát hiện ID'),
+                Validator.isNumber('#upf-giving', 'Vui lòng nhập tiền nhận được', { min: 0, minMaxMessage: 'Vui lòng nhập tiền từ 0 trở lên' }),
+                Validator.isNumber('#upf-playPercent', 'Vui lòng nhập tỉ lệ chơi', { min: 0, max: 100, minMaxMessage: 'Vui lòng chỉ nhập 0-100' }),
+            ],
+            onSubmit: function(data, { resetForm }) {
+                console.log(data);
+                const { pID, name, giving, playPercent } = data
+                resetForm({
+                    pID: 'UNSET',
+                    giving: 0,
+                    playPercent: 100,
+                })
+                storageDB.updatePlayer(pID, name, parseInt(giving), parseInt(playPercent))
+                hideFlowbiteModal('update-player-modal')
+                showToast(toastStatus.SUCCESS, 'Thành công')
+            }
+        })
+        
+        document.getElementById('as-ccost').oninput = e => {
+            e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
+        }
+
+        document.getElementById('as-bcost').oninput = e => {
+            e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
+        }
+
+        document.getElementById('us-ccost').oninput = e => {
+            e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
+        }
+
+        document.getElementById('us-bcost').oninput = e => {
+            e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
+        }
+
+        document.getElementById('rm-giving').oninput = e => {
+            e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
+        }
+
+        document.getElementById('upf-giving').oninput = e => {
+            e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
+        }
+
+    </script>
+</body>
+</html>
