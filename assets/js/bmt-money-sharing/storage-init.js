@@ -115,16 +115,12 @@ const storageDB = {
         const { player, session } = this.findOnePlayer(playerId)
         if (!player) return
         player.giving = money;
-        player.isPaid = player.giving >= player.costToPay
-        player.isRefund = player.giving === player.costToPay
         this.refresh(session.id)
     },
     donePaid(playerId) {
         const { player, session } = this.findOnePlayer(playerId)
         if (!player) return
         player.giving = player.costToPay;
-        player.isPaid = player.giving >= player.costToPay
-        player.isRefund = player.giving === player.costToPay
         this.refresh(session.id)
     },
     deletePlayer(playerId) {
@@ -148,8 +144,6 @@ const storageDB = {
         player.name = name
         player.giving = giving
         player.playPercent = playPercent
-        player.isPaid = player.giving >= player.costToPay
-        player.isRefund = player.giving === player.costToPay
         this.refresh(session.id)
     },
 
@@ -178,6 +172,8 @@ const storageDB = {
             donePlayerNumber += suitablePlayers.length;
             suitablePlayers.forEach(player => {
                 player.costToPay = costs.reduce((cur, acc) => cur + acc, 0);
+                player.isPaid = player.giving >= player.costToPay
+                player.isRefund = player.giving === player.costToPay
             });
         })
         let oldTotalCost = 0;
