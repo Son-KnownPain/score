@@ -17,6 +17,9 @@
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- IntroJs -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/introjs.css">
 </head>
 <body class="dark:bg-gray-900 bg-white">
     <div id="soso">
@@ -32,15 +35,53 @@
 
         <!-- Bottom navigation -->
         <div class="fixed bottom-0 left-0 z-40 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
-            <div class="grid h-full max-w-lg grid-cols-1 mx-auto font-medium">
-                <button data-modal-target="add-session-modal" data-modal-toggle="add-session-modal"  type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            <div class="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
+                <button data-intro="Nếu nhấn vào đây sẽ thêm một bảng phiên tính toán mới" data-step="1" data-modal-target="add-session-modal" data-modal-toggle="add-session-modal" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <i class="fa-solid fa-file-circle-plus text-gray-500 dark:text-gray-400"></i>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Thêm phiên</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Thêm</span>
+                </button>
+                <button data-intro="Đây như là danh bạ của bạn, danh sách người chơi bạn lưu lại" data-step="2" data-drawer-target="setting-bdrawer" data-drawer-show="setting-bdrawer" data-drawer-placement="bottom" aria-controls="setting-bdrawer" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                    <i class="fa-regular fa-address-book text-gray-500 dark:text-gray-400"></i>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Sổ</span>
+                </button>
+                <button data-intro="Đây chính là cài đặt cần thiết cho bạn" data-step="3" data-drawer-target="setting-bdrawer" data-drawer-show="setting-bdrawer" data-drawer-placement="bottom" aria-controls="setting-bdrawer" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                    <i class="fa-solid fa-gear text-gray-500 dark:text-gray-400"></i>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Cài đặt</span>
                 </button>
                 <!-- <button data-modal-target="add-session-modal" data-modal-toggle="add-session-modal"  type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <i class="fa-solid fa-users-viewfinder text-gray-500 dark:text-gray-400"></i>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Xem tổng kết</span>
                 </button> -->
+            </div>
+        </div>
+
+        <!-- Setting bottom drawer -->
+        <div id="setting-bdrawer" class="fixed bottom-0 left-0 right-0 top-16 z-40 w-full p-4 overflow-y-auto transition-transform bg-white dark:bg-gray-800 translate-y-full" tabindex="-1" aria-labelledby="drawer-bottom-label">
+            <h5 id="drawer-bottom-label" class="inline-flex items-center mb-8 text-base font-semibold text-gray-500 dark:text-white">
+                <i class="fa-solid fa-gear text-gray-500 dark:text-white mr-2"></i>
+                Cài đặt
+            </h5>
+            <button type="button" data-drawer-hide="setting-bdrawer" aria-controls="setting-bdrawer" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close menu</span>
+            </button>
+
+            <!-- Content -->
+            <div class="mb-4">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" checked class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Hỏi lại khi thanh toán</span>
+                </label>
+            </div>
+            <div class="mb-4">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" checked class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Thông báo thành công</span>
+                </label>
             </div>
         </div>
 
@@ -533,6 +574,13 @@
             e.target.parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(e.target.value);
         }
 
+    </script>
+    <script src="https://unpkg.com/intro.js/intro.js"></script>
+    <script>
+        if (!localStorage.getItem('tutorial')) {
+            introJs().start();
+            localStorage.setItem('tutorial', true)
+        }
     </script>
 </body>
 </html>
