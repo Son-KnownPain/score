@@ -287,7 +287,7 @@ const storageDB = {
                                             `;
                                         } else if (!isRefund && !isPaid) {
                                             status = `
-                                                <p class="text-sm text-red-500 truncate dark:text-red-400">
+                                                <p class="text-sm text-red-500 truncate dark:text-red-400 fb_pay cursor-pointer" data-pid="${player.id}">
                                                     Chưa thanh toán
                                                 </p>
                                             `;
@@ -458,7 +458,18 @@ const storageDB = {
                     document.getElementById('upf-giving').parentElement.querySelector('span.fmt-val').textContent = formatDotMoney(player.giving);
                     document.getElementById('upf-playPercent').value = player.playPercent
                 }
-            })
+            });
+
+            // Xử lí sự kiện click "chưa thanh toán" => "hoàn tất"
+            // Nhầm mục đích xử lí chuyển đổi trạng thái nhanh chóng hơn
+            const fastChangeStatus = ({ pid }) => {
+                _this.donePaid(pid)
+                showToast(toastStatus.SUCCESS, 'Thành công')
+            }
+            document.querySelector('.fb_pay').ondblclick = (e) => {
+                console.log(123);
+                fastChangeStatus({pid: e.target.dataset.pid})
+            }
 
             // Re-init flowbite
             initFlowbite();
