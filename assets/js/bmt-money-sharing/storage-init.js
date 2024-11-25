@@ -287,7 +287,7 @@ const storageDB = {
                                             `;
                                         } else if (!isRefund && !isPaid) {
                                             status = `
-                                                <p class="text-sm text-red-500 truncate dark:text-red-400 fb_pay cursor-pointer" data-pid="${player.id}">
+                                                <p class="text-sm text-red-500 truncate dark:text-red-400 fb_pay cursor-pointer select-none" data-pid="${player.id}">
                                                     Chưa thanh toán
                                                 </p>
                                             `;
