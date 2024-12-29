@@ -40,10 +40,10 @@
                     <i class="fa-solid fa-file-circle-plus text-gray-500 dark:text-gray-400"></i>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Thêm</span>
                 </button>
-                <!-- <button data-intro="Đây như là danh bạ của bạn, danh sách người chơi bạn lưu lại" data-step="2" data-drawer-target="setting-bdrawer" data-drawer-show="" data-drawer-placement="bottom" aria-controls="" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                <button data-intro="Đây như là danh bạ của bạn, danh sách người chơi bạn lưu lại" data-step="2" data-drawer-target="setting-bdrawer" data-drawer-show="setting-bdrawer" data-drawer-placement="bottom" aria-controls="setting-bdrawer" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <i class="fa-regular fa-address-book text-gray-500 dark:text-gray-400"></i>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Sổ</span>
-                </button> -->
+                </button>
                 <button data-intro="Đây chính là cài đặt cần thiết cho bạn" data-step="3" data-drawer-target="setting-bdrawer" data-drawer-show="setting-bdrawer" data-drawer-placement="bottom" aria-controls="setting-bdrawer" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <i class="fa-solid fa-gear text-gray-500 dark:text-gray-400"></i>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Cài đặt</span>
@@ -410,6 +410,18 @@
         </main>
         <!-- Version -->
         <p class="text-xs text-gray-700 dark:text-slate-300 px-2 text-center pb-16">v1.0.0</p>
+
+        <!-- Hide not rendered button -->
+        <div class="hidden">
+            <button data-modal-target="update-session-modal" type="button"></button>
+            <button data-modal-target="add-player-modal" type="button"></button>
+            <button data-modal-target="deleteAllPlayersConfirmationModal" type="button"></button>
+            <button data-modal-target="receive-money-modal" type="button"></button>
+            <button data-modal-target="update-player-modal" type="button"></button>
+            <button data-modal-target="deletePlayerConfirmationModal" type="button"></button>
+            <button data-modal-target="deleteSessionConfirmationModal" type="button"></button>
+            <button data-modal-target="donePaidConfirmationModal" type="button"></button>
+        </div>
     </div>
 
     <script>

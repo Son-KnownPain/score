@@ -287,7 +287,7 @@ const storageDB = {
                                             `;
                                         } else if (!isRefund && !isPaid) {
                                             status = `
-                                                <p class="text-sm text-red-500 truncate dark:text-red-400 fb_pay cursor-pointer select-none" data-pid="${player.id}">
+                                                <p class="text-sm text-red-500 truncate dark:text-red-400 fb_pay select-none" data-pid="${player.id}">
                                                     Chưa thanh toán
                                                 </p>
                                             `;
@@ -466,10 +466,21 @@ const storageDB = {
                 _this.donePaid(pid)
                 showToast(toastStatus.SUCCESS, 'Thành công')
             }
-            document.querySelector('.fb_pay').ondblclick = (e) => {
-                console.log(123);
-                fastChangeStatus({pid: e.target.dataset.pid})
-            }
+            const fbPayBtn = document.querySelectorAll('.fb_pay');
+            
+            Array.from(fbPayBtn).forEach(element => {
+                let timer;
+
+                element.addEventListener("touchstart", function(e) {
+                    timer = setTimeout(function() {
+                        fastChangeStatus({pid: e.target.dataset.pid})
+                    }, 600);
+                });
+
+                element.addEventListener("touchend", function() {
+                    clearTimeout(timer);
+                });
+            });
 
             // Re-init flowbite
             initFlowbite();
@@ -505,7 +516,7 @@ const storageDB = {
 }
 
 try {
-    storageDB.init()
+    storageDB.init();
 } catch (error) {
     console.log(error);
 }
