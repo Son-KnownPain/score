@@ -7,6 +7,9 @@ function ssToast(selector, duration = 2000) {
             ERROR: 'ERROR',
         },
         ssShow(status = 'SUCCESS', message = 'Message', showDuration = duration) {
+            if (!config.state[CONF_SUCCESS_NOTIFY]) {
+                return;
+            }
             const ssToastElm = document.querySelector(selector);
             if (ssToastElm) {
                 // Clear behavior before
@@ -27,7 +30,7 @@ function ssToast(selector, duration = 2000) {
                         break
                 }
                 // Set
-                ssToastElm.classList.add("text-gray-500", "bg-white", "dark:text-gray-400", "dark:bg-gray-800", "p-4", "h-16", "rounded-lg", "flex", "items-center", "justify-center", "fixed", "inset-1", "z-10");
+                ssToastElm.classList.add("shadow-lg", "shadow-cyan-500/50", "text-gray-500", "bg-white", "dark:text-gray-400", "dark:bg-gray-800", "p-4", "h-16", "rounded-lg", "flex", "items-center", "justify-center", "fixed", "inset-1", "z-10");
                 ssToastElm.innerHTML = `
                     <i class="${icon} text-lg"></i>
                     <div class="ms-3 text-base font-normal">${message}</div>
